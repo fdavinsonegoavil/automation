@@ -22,7 +22,7 @@ public class Compra extends BaseTestSuite{
         paginaAddress.continuarPantallaAddress();
         paginaShipping.continuarPantallaShipping();
         paginaPayment.completarPantallaDePagosConCheque();
-        paginaPayment.resultadoDeOrden("Your order on My Store is complete.");
+        Assert.assertTrue(paginaPayment.resultadoDeOrden("Your order on My Store is complete."));
 
 
     }
