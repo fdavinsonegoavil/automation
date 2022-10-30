@@ -8,6 +8,7 @@ import org.hamcrest.Matchers;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
 
 public class UsuarioDogPile {
     //String actor;
@@ -15,23 +16,20 @@ public class UsuarioDogPile {
     DogpilePaginaPrincipal paginaPrincipal;
     DogPilePaginaResultado paginaResultado;
 
-    //@Step("#actor ingresa a la pagina principal de dogpile")
-    @Step
-    public void ingresar_a_dogpile() {
+    @Step("#actor ingresa a la pagina principal de dogpile")
+    public void ingresa_a_dogpile() {
         paginaPrincipal.open();
     }
 
 
-    //@Step("#actor realiza una búsqueda de: {0}")
-    @Step
+    @Step("#actor realiza una búsqueda de: {0}")
     public void busca_por_palabra_clave(String palabraClave) {
         paginaPrincipal.ingresarPalabraClave(palabraClave);
         paginaPrincipal.realizarBusqueda();
     }
 
 
-    //@Step("#actor deberia poder ver resultados que contengan la palabra {0}")
-    @Step
+    @Step("#actor deberia poder ver resultados que contengan la palabra {0}")
     public void deberia_ver_resutlados_con_palabra(String palabraEsperada) {
         List<String> resultados = paginaResultado.obtenerResultados();
         resultados.replaceAll(String::toLowerCase);
@@ -39,6 +37,15 @@ public class UsuarioDogPile {
             System.out.println(resultados.get(i));
         }
 
-        assertThat(resultados, Matchers.everyItem(Matchers.containsString(palabraEsperada)));
+        assertThat(resultados, Matchers.everyItem(containsString(palabraEsperada)));
+    }
+
+    @Step("#actor deberia ver el texto esperado: {1} en el resultado del titulo: {0}")
+    public void deberia_ver_resultado_de_titulo_con_texto_correcto(String tituloResultado, String textoResultadoEsperado) {
+        String texto = paginaResultado.obtenerTextoDeTituloResultado(tituloResultado);
+        System.out.println(texto);
+        System.out.println(textoResultadoEsperado);
+        assertThat(texto,containsString(textoResultadoEsperado));
+
     }
 }

@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 public class DogPilePaginaResultado extends PageObject {
 
     public static final String TITULO_RESULTADO = ".web-bing__title";
+    public static final String DESCRIPCION_DE_TEXTO = "..//span[contains(@class,'web-bing__description')]";
+    public static final String TITULO_RESULTADO_CON_TEXTO = "//a[contains(@class,'web-bing__title') and contains(.,'{0}')]";
 
     public List<String> obtenerResultados(){
         return findAll(TITULO_RESULTADO)
@@ -16,4 +18,9 @@ public class DogPilePaginaResultado extends PageObject {
                 .collect(Collectors.toList());
     }
 
+    public String obtenerTextoDeTituloResultado(String tituloResultado) {
+        return findBy(TITULO_RESULTADO_CON_TEXTO,tituloResultado)
+                .then().findBy(DESCRIPCION_DE_TEXTO)
+                .getText();
+    }
 }
