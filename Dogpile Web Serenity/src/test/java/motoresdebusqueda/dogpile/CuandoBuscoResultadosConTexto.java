@@ -9,21 +9,19 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 
 @RunWith(SerenityRunner.class)
-public class CuandoEjecutamosUnaBusqueda {
-
+public class CuandoBuscoResultadosConTexto {
     @Steps
     UsuarioDogPile Frank;
 
     @Managed
     WebDriver driver;
 
+
     @Test
-    public void deberiamos_ver_resultados_relevantes(){
+    public void resultado_de_wikipedia_contiene_texto_correcto(){
         Frank.ingresa_a_dogpile();
+        Frank.busca_por_palabra_clave("argentine rock");
+        Frank.deberia_ver_resultado_de_titulo_con_texto_correcto("Argentine rock - Wikipedia"," and roll first began to appear in ");
 
-        Frank.busca_por_palabra_clave("rock argentino");
-
-        Frank.deberia_ver_resutlados_con_palabra("rock");
     }
-
 }
